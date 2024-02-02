@@ -1,21 +1,48 @@
 let myStamps = [
     /*{
-        value: 0.80,
+        value: 80,
         face_value: 'L.400',
         number: 14
     }*/
 ];
 let currentSet = []
+const fieldset = document.querySelector('#francobolli')
+const tab = document.querySelector('#postage')
 function retrieveStamps() {
-    myStamps = JSON.parse(localStorage.getItem('__myStamps'))
+    myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
+    myStamps = myStamps.filter(({number})=>number>0)
+    myStamps.sort((a,b) => b.value-a.value)
+    saveStamps()
 }
+retrieveStamps()
 
 function saveStamps() {
+    myStamps = myStamps.filter(({number})=>number>0)
+    myStamps.sort((a,b) => b.value-a.value)
     localStorage.setItem('__myStamps', JSON.stringify(myStamps))
+    showStamps()
 }
 
+function showStamps() {
+    let html = '<table>'
+    for (let stamp of myStamps) {
+        html += `<tr><td>${stamp.face_value}</td>
+        <td>${stamp.value}</td>
+        <td>${stamp.number}</td>
+        <td><button onclick="removeStamp('${stamp.face_value}')">Elimina francobollo</button></td>
+        </tr>`
+    }
+    html += '</table>'
+    fieldset.innerHTML = html
+}
+
+function removeStamp(fv) {
+    myStamps.find(x => x.face_value === fv).number = 0
+    saveStamps()
+
+}
 // AGGIUNGI NUOVO FRANCOBOLLO AL SET
-const lira = document.querySelector('#lira')
+const lire = document.querySelector('#lire')
 const euro = document.querySelector('#euro')
 const lettera = document.querySelector('#lettera')
 const scegliLettera = document.querySelector('#scegli-lettera')
@@ -24,8 +51,8 @@ const stampQuantity = document.querySelector('#quantity')
 function addStamps() {
     let face_value;
     let value;
-    let number = stampQuantity.value;
-    if (lira.checked) {
+    let number = Number(stampQuantity.value);
+    if (lire.checked) {
         face_value = `L.${stampValue.value}`
         value = Math.round(100 * stampValue.value / 1936.27)
 
@@ -74,10 +101,13 @@ function addStamps() {
 
     const inMyStamps = myStamps.find((obj) => (obj.face_value === face_value))
     if (inMyStamps) {
-        inMyStamps.quantity += number
+        inMyStamps.number += number
     } else {
-        myStamps.push({face_value, value, number})
+        myStamps.push({ face_value, value, number })
+        myStamps.sort((a,b) => b.value-a.value)
+    
     }
+    saveStamps()
 }
 
 const B = document.querySelector('#B')
@@ -86,10 +116,10 @@ const B2 = document.querySelector('#B2')
 const B3 = document.querySelector('#B3')
 const other = document.querySelector('#other')
 const altriValori = document.querySelector('#valore-francobollo-calcolo')
-const numeroFrancobolli = document.quarySelector('#quantita-francobolli-calcolo')
+const numeroFrancobolli = document.querySelector('#quantita-francobolli-calcolo')
 function calculateStamps() {
     let v;
-    switch(true) {
+    switch (true) {
         case B.checked:
             v = 125;
             break
@@ -105,14 +135,23 @@ function calculateStamps() {
         case other.checked:
             v = Math.round(altriValori.value * 100)
     }
-    currentSet = calculate_stamps(myStamps, v, numeroFrancobolli.value);
+    currentSet = calculate_stamps(myStamps, v, Number(numeroFrancobolli.value));
+    let html = ''
+    html += '<tr>'
+    for (let stamp of currentSet) {
+        html += `<td>${stamp.face_value}</td>`
+    }
+    html += '</tr>'
+    postage.innerHTML = html
 }
 
 function useStamps() {
     for (let x of currentSet) {
-        let stamp = myStamps.find((a) => x.face_value===a.face_value)
+        let stamp = myStamps.find((a) => x.face_value === a.face_value)
         stamp.number--;
-    } 
+    }
+    myStamps = myStamps.filter(({number}) => number > 0)
+    localStorage.setItem('__myStamps', JSON.stringify(myStamps))
 }
 
 function calculate_stamps(stamps, postage, numberOfStamps) {
@@ -123,7 +162,7 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
         while (current_number_of_stamps <= numberOfStamps) {
             const stamps_combinations = combRep(stamps, current_number_of_stamps);
             for (const arr of stamps_combinations) {
-                const sum = arr.reduce((a, b) => a + b.value, 0);
+                const sum = arr.reduce((a, b) => a + b.value, 0)
                 if (sum === postage + range) {
                     the_right_postage.push(arr);
                 }

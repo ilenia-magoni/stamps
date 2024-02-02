@@ -8,32 +8,34 @@
 
 <body>
     <fieldset>
-        <button id="Retrieve" onclick="retrieveStamps()">Retrieve from local storage</button>
-        <button id="Save" onclick="saveStamps()">Save in local storage</button>
-    </fieldset>
-    <fieldset>
         <legend>Add Stamps to reserve</legend>
-        <label for="euro"></label><input id="euro" type="radio" group="valuta" value="euro">€</label>
-        <label for="lira"></label><input id="lire" type="radio" group="valuta" value="lira">L.</label>
-        <input id="lettera" type="radio" group="valuta" value="lettera"><select id="scegli-lettera">
+        <label for="euro"></label><input checked id="euro" type="radio" name="valuta" value="euro">€</label>
+        <label for="lira"></label><input id="lire" type="radio" name="valuta" value="lira">L.</label>
+        <input id="lettera" type="radio" name="valuta" value="lettera"><select id="scegli-lettera">
             <option value="B">B</option>
             <option value="B1">B Zona 1</option>
             <option value="B2">B Zona 2</option>
             <option value="B3">B Zona 3</option>
         </select>
-        <label>Quantita: <input type="number" id="quantity"></label><label>Valore: <input id="valore" type="number" min="1"></label>
+        <label>Quantita: <input type="number" id="quantity"></label><label>Valore: <input id="valore" type="number"
+                min="1"></label>
         <button onclick="addStamps()">Add Stamps</button>
     </fieldset>
     <fieldset>
-        Calcolami francobolli per
-        <label><input type="radio" value="B" id="B"> B</label>
-        <label><input type="radio" value="B1" id="B1"> B zona 1</label>
-        <label><input type="radio" value="B2" id="B2"> B zona 2</label>
-        <label><input type="radio" value="B3" id="B3"> B zona 3</label>
-        <label><input type="radio" value="other" id="other"> Altro</label> <label>€<input type="number" id="valore-francobollo-calcolo"></label>
-        <label>Massimo numero francobolli <input type="number" id="quantita-francobolli-calcolo"></label>
-        <button id="calcola" value="Calcola" onclick="calculateStamps()"></button>
-        <button id="usa-questi-francobolli" value="Usa questi francobolli"></button>
+        <legend>Calcolami francobolli per</legend>
+        <label><input type="radio" value="B" id="B" name="money"> B</label>
+        <label><input type="radio" value="B1" id="B1" checked name="money"> B zona 1</label>
+        <label><input type="radio" value="B2" id="B2" name="money"> B zona 2</label>
+        <label><input type="radio" value="B3" id="B3" name="money"> B zona 3</label>
+        <label><input type="radio" value="other" id="other" name="money"> Altro</label> <label>€<input type="number"
+                id="valore-francobollo-calcolo"></label>
+        <label>Massimo numero francobolli <input type="number" min="1" max="8" value="5" id="quantita-francobolli-calcolo"></label>
+        <button id="calcola" value="Calcola" onclick="calculateStamps()">Calcola</button>
+        <table id="postage"></table>
+        <button id="usa-questi-francobolli" value="Usa questi francobolli" onclick="useStamps()">Usa</button>
+    </fieldset>
+    <fieldset id="francobolli">
+
     </fieldset>
     <script src="./script.js"></script>
 </body>
