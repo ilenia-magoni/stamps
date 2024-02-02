@@ -5,6 +5,7 @@ let myStamps = [
         number: 14
     }*/
 ];
+let currentSet = []
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps'))
 }
@@ -104,7 +105,14 @@ function calculateStamps() {
         case other.checked:
             v = Math.round(altriValori.value * 100)
     }
-    calculate_stamps(myStamps, v, numeroFrancobolli.value);
+    currentSet = calculate_stamps(myStamps, v, numeroFrancobolli.value);
+}
+
+function useStamps() {
+    for (let x of currentSet) {
+        let stamp = myStamps.find((a) => x.face_value===a.face_value)
+        stamp.number--;
+    } 
 }
 
 function calculate_stamps(stamps, postage, numberOfStamps) {
