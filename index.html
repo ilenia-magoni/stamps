@@ -8,30 +8,31 @@
 
 <body>
     <fieldset>
-        <button>Retrieve from local storage</button>
-        <button>Save in local storage</button>
+        <button id="Retrieve" onclick="retrieveStamps()">Retrieve from local storage</button>
+        <button id="Save" onclick="saveStamps()">Save in local storage</button>
     </fieldset>
     <fieldset>
         <legend>Add Stamps to reserve</legend>
         <label for="euro"></label><input id="euro" type="radio" group="valuta" value="euro">€</label>
         <label for="lira"></label><input id="lire" type="radio" group="valuta" value="lira">L.</label>
         <input id="lettera" type="radio" group="valuta" value="lettera"><select>
-            <option>B</option>
-            <option>B Zona 1</option>
-            <option>B Zona 2</option>
-            <option>B Zona 3</option>
+            <option value="B">B</option>
+            <option value="B1">B Zona 1</option>
+            <option value="B2">B Zona 2</option>
+            <option value="B3">B Zona 3</option>
         </select>
         <label>Quantita: <input type="number"></label><label>Valore: <input id="quantity" type="number" min="1"></label>
         <button>Add Stamps</button>
     </fieldset>
     <fieldset>
         Calcolami francobolli per
-        <label><input type="radio"> B</label>
-        <label><input type="radio"> B zona 1</label>
-        <label><input type="radio"> B zona 2</label>
-        <label><input type="radio"> B zona 3</label>
-        <label><input type="radio"> Altro</label> <label>€<input type="number"></label>
-        <label>Massimo numero francobolli<input type="number"></label>
+        <label><input type="radio" value="B"> B</label>
+        <label><input type="radio" value="B1"> B zona 1</label>
+        <label><input type="radio" value="B2"> B zona 2</label>
+        <label><input type="radio" value="B3"> B zona 3</label>
+        <label><input type="radio" value="other"> Altro</label> <label>€<input type="number"></label>
+        <label>Massimo numero francobolli <input type="number"></label>
+        <button id="calcola" value="Calcola"></button>
     </fieldset>
     <script src="./script.js"></script>
 </body>
