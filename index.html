@@ -16,9 +16,10 @@
             <option value="B1">B Zona 1</option>
             <option value="B2">B Zona 2</option>
             <option value="B3">B Zona 3</option>
-        </select>
-        <label>Quantita: <input type="number" id="quantity"></label><label>Valore: <input id="valore" type="number"
-                min="1"></label>
+        </select><br>
+        <label>Quantita: <input type="number" id="quantity"></label>
+        <br><label>Valore: <input id="valore" type="number"
+                min="1"></label><br>
         <button onclick="addStamps()">Add Stamps</button>
     </fieldset>
     <fieldset>
@@ -29,7 +30,8 @@
         <label><input type="radio" value="B3" id="B3" name="money"> B zona 3</label>
         <label><input type="radio" value="other" id="other" name="money"> Altro</label> <label>€<input type="number"
                 id="valore-francobollo-calcolo"></label>
-        <label>Massimo numero francobolli <input type="number" min="1" max="8" value="5" id="quantita-francobolli-calcolo"></label>
+        <br><label>Massimo numero francobolli <input type="number" min="1" max="8" value="5"
+                id="quantita-francobolli-calcolo"></label>
         <button id="calcola" value="Calcola" onclick="calculateStamps()">Calcola</button>
         <table id="postage"></table>
         <button id="usa-questi-francobolli" value="Usa questi francobolli" onclick="useStamps()">Usa</button>
