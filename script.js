@@ -8,6 +8,14 @@ let myStamps = [
 let currentSet = []
 const fieldset = document.querySelector('#francobolli')
 const tab = document.querySelector('#postage')
+const B = document.querySelector('#B')
+const B1 = document.querySelector('#B1')
+const B2 = document.querySelector('#B2')
+const B3 = document.querySelector('#B3')
+const other = document.querySelector('#other')
+const altriValori = document.querySelector('#valore-francobollo-calcolo')
+const numeroFrancobolli = document.querySelector('#quantita-francobolli-calcolo')
+
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
     myStamps = myStamps.filter(({number})=>number>0)
@@ -110,13 +118,6 @@ function addStamps() {
     saveStamps()
 }
 
-const B = document.querySelector('#B')
-const B1 = document.querySelector('#B1')
-const B2 = document.querySelector('#B2')
-const B3 = document.querySelector('#B3')
-const other = document.querySelector('#other')
-const altriValori = document.querySelector('#valore-francobollo-calcolo')
-const numeroFrancobolli = document.querySelector('#quantita-francobolli-calcolo')
 function calculateStamps() {
     let v;
     switch (true) {
