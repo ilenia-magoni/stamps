@@ -18,15 +18,15 @@ const numeroFrancobolli = document.querySelector('#quantita-francobolli-calcolo'
 
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
-    myStamps = myStamps.filter(({number})=>number>0)
-    myStamps.sort((a,b) => b.value-a.value)
+    myStamps = myStamps.filter(({ number }) => number > 0)
+    myStamps.sort((a, b) => b.value - a.value)
     saveStamps()
 }
 retrieveStamps()
 
 function saveStamps() {
-    myStamps = myStamps.filter(({number})=>number>0)
-    myStamps.sort((a,b) => b.value-a.value)
+    myStamps = myStamps.filter(({ number }) => number > 0)
+    myStamps.sort((a, b) => b.value - a.value)
     localStorage.setItem('__myStamps', JSON.stringify(myStamps))
     showStamps()
 }
@@ -112,8 +112,8 @@ function addStamps() {
         inMyStamps.number += number
     } else {
         myStamps.push({ face_value, value, number })
-        myStamps.sort((a,b) => b.value-a.value)
-    
+        myStamps.sort((a, b) => b.value - a.value)
+
     }
     saveStamps()
 }
@@ -151,7 +151,7 @@ function useStamps() {
         let stamp = myStamps.find((a) => x.face_value === a.face_value)
         stamp.number--;
     }
-    myStamps = myStamps.filter(({number}) => number > 0)
+    myStamps = myStamps.filter(({ number }) => number > 0)
     saveStamps()
 }
 
