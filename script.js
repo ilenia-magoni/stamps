@@ -151,7 +151,7 @@ function useStamps() {
         stamp.number--;
     }
     myStamps = myStamps.filter(({number}) => number > 0)
-    localStorage.setItem('__myStamps', JSON.stringify(myStamps))
+    saveStamps()
 }
 
 function calculate_stamps(stamps, postage, numberOfStamps) {
