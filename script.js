@@ -140,7 +140,7 @@ function calculateStamps() {
     let html = ''
     html += '<tr>'
     for (let stamp of currentSet) {
-        html += `<td>${stamp.face_value}</td>`
+        html += `<td><label><input type=checkbox>${stamp.face_value}</label></td>`
     }
     html += '</tr>'
     postage.innerHTML = html
