@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-table label {
+.postage td {
     padding: 10px;
     border: 1px solid black;
 }
