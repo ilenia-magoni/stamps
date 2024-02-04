@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-.postage td {
+#postage td {
     padding: 10px;
     border: 1px solid black;
 }
