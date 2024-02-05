@@ -19,14 +19,19 @@ const numeroFrancobolli = document.querySelector('#quantita-francobolli-calcolo'
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
     myStamps = myStamps.filter(({ number }) => number > 0)
-    myStamps.sort((a, b) => b.value - a.value || a.face_value.localeCompare(b.face_value))
+    sortStamps()
     saveStamps()
 }
+
 retrieveStamps()
+
+function sortStamps() {
+    myStamps.sort((a, b) => b.value - a.value || b[0] === a[0] ? 0 : b[0] === 'L' ? 1 : -1 || b.face_value.match(/\d+/)[0] - a.face_value.match(/\d+/)[0])
+}
 
 function saveStamps() {
     myStamps = myStamps.filter(({ number }) => number > 0)
-    myStamps.sort((a, b) => b.value - a.value || a.face_value.localeCompare(b.face_value))
+    sortStamps()
     localStorage.setItem('__myStamps', JSON.stringify(myStamps))
     showStamps()
 }
