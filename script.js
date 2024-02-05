@@ -26,7 +26,7 @@ retrieveStamps()
 
 function saveStamps() {
     myStamps = myStamps.filter(({ number }) => number > 0)
-    myStamps.sort((a, b) => b.value - a.value)
+    myStamps.sort((a, b) => b.value - a.value || a.face_value.localCompare(b.face_value))
     localStorage.setItem('__myStamps', JSON.stringify(myStamps))
     showStamps()
 }
