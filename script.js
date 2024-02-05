@@ -40,7 +40,7 @@ function showStamps() {
     let html = '<table>'
     for (let stamp of myStamps) {
         html += `<tr><td>${stamp.face_value}</td>
-        <td>${stamp.value}</td>
+        <td>€${stamp.value/100}</td>
         <td>${stamp.number}</td>
         <td><button onclick="removeStamp('${stamp.face_value}')">Elimina francobollo</button></td>
         </tr>`
