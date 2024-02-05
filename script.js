@@ -26,7 +26,8 @@ function retrieveStamps() {
 retrieveStamps()
 
 function sortStamps() {
-    myStamps.sort((a, b) => b.value - a.value || b[0] === a[0] ? 0 : b[0] === 'L' ? 1 : -1 || b.face_value.match(/\d+/)[0] - a.face_value.match(/\d+/)[0])
+    myStamps.sort((a, b) => b.value - a.value || b[0] === a[0] ? 0 : b[0] === 'L' ? -1 : 1 || b.face_value.match(/\d+/)[0] - a.face_value.match(/\d+/)[0])
+    showStamps()
 }
 
 function saveStamps() {
