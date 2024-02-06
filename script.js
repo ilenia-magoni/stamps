@@ -189,7 +189,6 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
         if (the_right_postage.length > 0) break;
         range++;
     }
-    console.log(the_right_postage)
     const result =
         the_right_postage[Math.floor(the_right_postage.length * Math.random())];
     return result;
