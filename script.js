@@ -28,10 +28,10 @@ retrieveStamps()
 function sortStamps() {
     myStamps.sort(
         (a, b) =>
-           (b.value - a.value)
-        || (b.face_value[0] === a.face_value[0] ? 0 : b.face_value[0] === 'L' ? -1 : 1)
-        || (Number(b.face_value.match(/\d+/)[0]) - Number(a.face_value.match(/\d+/)[0]))
-        )
+            (b.value - a.value)
+            || (b.face_value[0] === a.face_value[0] ? 0 : b.face_value[0] === 'L' ? -1 : 1)
+            || (Number(b.face_value.match(/\d+/)[0]) - Number(a.face_value.match(/\d+/)[0]))
+    )
     showStamps()
 }
 
@@ -175,8 +175,13 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
         while (current_number_of_stamps <= numberOfStamps) {
             const stamps_combinations = combRep(stamps, current_number_of_stamps);
             for (const arr of stamps_combinations) {
-                const sum = arr.reduce((a, b) => a + b.value, 0)
-                if (sum === postage + range) {
+                const gg = arr.reduce((a, b) => ({ sum: a.sum + b.value, count: { ...a.count, [b.face_value]: ((a.count[b.face_value] || 0) + 1) } }), { sum: 0, count: {} })
+                console.log(gg)
+                if (
+                    gg.sum === postage + range
+                    && Object.keys(gg.count).every(
+                        x => (gg.count[x] <= myStamps.find(stamp => stamp.face_value === x).number)
+                    )) {
                     the_right_postage.push(arr);
                 }
             }
