@@ -179,7 +179,7 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
                 if (
                     gg.sum === postage + range
                     && Object.keys(gg.count).every(
-                        x => (gg.count[x] <= myStamps.find(stamp => stamp.face_value === x).number)
+                        x => (gg.count[x] <= arr.find(stamp => stamp.face_value === x).number)
                     )) {
                     the_right_postage.push(arr);
                 }
