@@ -176,7 +176,6 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
             const stamps_combinations = combRep(stamps, current_number_of_stamps);
             for (const arr of stamps_combinations) {
                 const gg = arr.reduce((a, b) => ({ sum: a.sum + b.value, count: { ...a.count, [b.face_value]: ((a.count[b.face_value] || 0) + 1) } }), { sum: 0, count: {} })
-                console.log(gg)
                 if (
                     gg.sum === postage + range
                     && Object.keys(gg.count).every(
@@ -190,9 +189,9 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
         if (the_right_postage.length > 0) break;
         range++;
     }
+    console.log(the_right_postage)
     const result =
         the_right_postage[Math.floor(the_right_postage.length * Math.random())];
-    console.table(result);
     return result;
 }
 
