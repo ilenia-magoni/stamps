@@ -75,7 +75,7 @@ function addStamps() {
     let number = Number(stampQuantity.value);
     if (lire.checked) {
         face_value = `L.${stampValue.value}`
-        value = Math.round(1000 * stampValue.value / 1936.27) / 10
+        value = (100 * stampValue.value / 1936.27)
 
 
     } else if (euro.checked) {
