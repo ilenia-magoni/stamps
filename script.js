@@ -19,6 +19,8 @@ const numeroFrancobolli = document.querySelector('#quantita-francobolli-calcolo'
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
     myStamps = myStamps.filter(({ number }) => number > 0)
+        .map(({ face_value, value, number }) => (face_value[0] === 'L' && value % 1 !== 0) ? { face_value, number, value: Math.round(1000 * face_value.match(/\d+/)[0] / 1936.27) / 10 }
+            : { face_value, value, number })
     sortStamps()
     saveStamps()
 }
@@ -73,7 +75,7 @@ function addStamps() {
     let number = Number(stampQuantity.value);
     if (lire.checked) {
         face_value = `L.${stampValue.value}`
-        value = Math.round(100 * stampValue.value / 1936.27)
+        value = Math.round(1000 * stampValue.value / 1936.27) / 10
 
 
     } else if (euro.checked) {
@@ -177,7 +179,7 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
             for (const arr of stamps_combinations) {
                 const gg = arr.reduce((a, b) => ({ sum: a.sum + b.value, count: { ...a.count, [b.face_value]: ((a.count[b.face_value] || 0) + 1) } }), { sum: 0, count: {} })
                 if (
-                    gg.sum === postage + range
+                    Math.round(gg.sum) === postage + range
                     && Object.keys(gg.count).every(
                         x => (gg.count[x] <= arr.find(stamp => stamp.face_value === x).number)
                     )) {
