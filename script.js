@@ -19,7 +19,7 @@ const numeroFrancobolli = document.querySelector('#quantita-francobolli-calcolo'
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
     myStamps = myStamps.filter(({ number }) => number > 0)
-        .map(({ face_value, value, number }) => (face_value[0] === 'L' && value % 1 !== 0) ? { face_value, number, value: Math.round(1000 * face_value.match(/\d+/)[0] / 1936.27) / 10 }
+        .map(({ face_value, value, number }) => ((face_value[0] === 'L') && (value % 1 !== 0)) ? { face_value, number, value: Math.round(1000 * face_value.match(/\d+/)[0] / 1936.27) / 10 }
             : { face_value, value, number })
     sortStamps()
     saveStamps()
