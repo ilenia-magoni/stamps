@@ -6,3 +6,12 @@
     padding: 10px;
     border: 1px solid black;
 }
+
+aside {
+    position: absolute;
+    background: white;
+    top: 0;
+    right: 0;
+    border: 1px black double;
+    margin: 4px;
+}

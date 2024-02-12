@@ -15,6 +15,13 @@ const B3 = document.querySelector('#B3')
 const other = document.querySelector('#other')
 const altriValori = document.querySelector('#valore-francobollo-calcolo')
 const numeroFrancobolli = document.querySelector('#quantita-francobolli-calcolo')
+const aside = document.querySelector('aside');
+const lire = document.querySelector('#lire')
+const euro = document.querySelector('#euro')
+const lettera = document.querySelector('#lettera')
+const scegliLettera = document.querySelector('#scegli-lettera')
+const stampValue = document.querySelector('#valore')
+const stampQuantity = document.querySelector('#quantity')
 
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
@@ -45,6 +52,7 @@ function saveStamps() {
 }
 
 function showStamps() {
+    let total = 0
     let html = '<table><tr><td>valore facciale</td><td>valore (€)</td><td>quantità</td></tr>'
     for (let stamp of myStamps) {
         html += `<tr><td>${stamp.face_value}</td>
@@ -52,9 +60,12 @@ function showStamps() {
         <td>${stamp.number}</td>
         <td><button onclick="removeStamp('${stamp.face_value}')">Elimina francobollo</button></td>
         </tr>`
+        total += stamp.value
     }
     html += '</table>'
     fieldset.innerHTML = html
+    aside.innerText = `Valore totale: €${(total/100).toFixed(2)}`
+
 }
 
 function removeStamp(fv) {
@@ -63,12 +74,7 @@ function removeStamp(fv) {
 
 }
 // AGGIUNGI NUOVO FRANCOBOLLO AL SET
-const lire = document.querySelector('#lire')
-const euro = document.querySelector('#euro')
-const lettera = document.querySelector('#lettera')
-const scegliLettera = document.querySelector('#scegli-lettera')
-const stampValue = document.querySelector('#valore')
-const stampQuantity = document.querySelector('#quantity')
+
 function addStamps() {
     let face_value;
     let value;
