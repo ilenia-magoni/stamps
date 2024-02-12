@@ -60,7 +60,7 @@ function showStamps() {
         <td>${stamp.number}</td>
         <td><button onclick="removeStamp('${stamp.face_value}')">Elimina francobollo</button></td>
         </tr>`
-        total += stamp.value
+        total += stamp.value * stamp.number
     }
     html += '</table>'
     fieldset.innerHTML = html
