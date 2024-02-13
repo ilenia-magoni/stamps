@@ -52,7 +52,8 @@ function saveStamps() {
 }
 
 function showStamps() {
-    let total = 0
+    let totalValue = 0
+    let totalAmount = 0
     let html = '<table><tr><td>valore facciale</td><td>valore (€)</td><td>quantità</td></tr>'
     for (let stamp of myStamps) {
         html += `<tr><td>${stamp.face_value}</td>
@@ -60,11 +61,13 @@ function showStamps() {
         <td>${stamp.number}</td>
         <td><button onclick="removeStamp('${stamp.face_value}')">Elimina francobollo</button></td>
         </tr>`
-        total += stamp.value * stamp.number
+        totalValue += stamp.value * stamp.number
+        totalAmount += stamp.number
     }
     html += '</table>'
     fieldset.innerHTML = html
-    aside.innerText = `Valore totale: €${(total/100).toFixed(2)}`
+    aside.innerHTML = `<p>Numero totale francobolli: ${totalAmount}</p>
+    <p>Valore totale: €${(total/100).toFixed(2)}</p>`
 
 }
 
