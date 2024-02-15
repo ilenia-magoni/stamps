@@ -22,8 +22,7 @@ const lettera = document.querySelector('#lettera')
 const scegliLettera = document.querySelector('#scegli-lettera')
 const stampValue = document.querySelector('#valore')
 const stampQuantity = document.querySelector('#quantity')
-const buttonContainer = document.querySelector('#button-container')
-const spanTotal = document.querySelector("span#total")
+
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
     myStamps = myStamps.filter(({ number }) => number > 0)
@@ -55,12 +54,11 @@ function saveStamps() {
 function showStamps() {
     let totalValue = 0
     let totalAmount = 0
-    let html = '<legend>lista francobolli</legend><table><tr><td>valore facciale</td><td>valore (€)</td><td>quantità</td><td>valore totale</td></tr>'
+    let html = '<legend>lista francobolli</legend><table><tr><td>valore facciale</td><td>valore (€)</td><td>quantità</td></tr>'
     for (let stamp of myStamps) {
         html += `<tr><td>${stamp.face_value}</td>
         <td>€${stamp.face_value[0] === 'L' ? (stamp.value / 100).toFixed(3) : (stamp.value / 100).toFixed(2)}</td>
         <td>${stamp.number}</td>
-        <td>€${(stamp.number * stamp.value / 100).toFixed(2)}</td>
         <td><button onclick="removeStamp('${stamp.face_value}')">Elimina francobollo</button></td>
         </tr>`
         totalValue += stamp.value * stamp.number
@@ -69,14 +67,9 @@ function showStamps() {
     html += '</table>'
     fieldset.innerHTML = html
     aside.innerHTML = `<p>Numero totale francobolli: ${totalAmount}</p>
-    <p>Valore totale: €${(totalValue / 100).toFixed(2)}</p>
-    <p>Numero denominazioni diverse: ${myStamps.length}</p>
-    <p>Numero combinazioni calcolate: <span id="numb-comb">${numberCombinations(myStamps.length, numeroFrancobolli.value)}</span></p>`
-}
+    <p>Valore totale: €${(totalValue/100).toFixed(2)}</p>`
 
-numeroFrancobolli.addEventListener("change", () => {
-    document.querySelector('#numb-comb').innerText = numberCombinations(myStamps.length, numeroFrancobolli.value)
-})
+}
 
 function removeStamp(fv) {
     myStamps.find(x => x.face_value === fv).number = 0
@@ -89,7 +82,6 @@ function addStamps() {
     let face_value;
     let value;
     let number = Number(stampQuantity.value);
-    if (number % 1 !== 0) { alert("Quantity must be a whole number"); return }
     if (lire.checked) {
         face_value = `L.${stampValue.value}`
         value = (100 * stampValue.value / 1936.27)
@@ -147,16 +139,6 @@ function addStamps() {
     }
     saveStamps()
 }
-function numberCombinations(x, y) {
-    let z = 0
-    for (let n = y; n > 0; n--) { z += Math.pow(x, n); }
-    if (z > 9999) {
-        return z.toExponential(2)
-    }
-    else {
-        return z;
-    }
-}
 
 function calculateStamps() {
     let v;
@@ -179,22 +161,11 @@ function calculateStamps() {
     currentSet = calculate_stamps(myStamps, v, Number(numeroFrancobolli.value));
     let html = ''
     html += '<tr>'
-    let noStamps = true;
     for (let stamp of currentSet) {
         html += `<td><label><input name="stamps" type=checkbox>${stamp.face_value}</label></td>`
-        noStamps = false;
     }
-    if (noStamps) {
-        html += '<td>Nessuna combinazione possibile</td></tr>'
-        postage.innerHTML = html
-        buttonContainer.innerHTML = ''
-    } else {
-        html += '</tr>'
-        postage.innerHTML = html
-        buttonContainer.innerHTML = '<button id="usa-questi-francobolli" value="Usa questi francobolli" onclick="useStamps()">Usa</button>'
-        const usaQuestiFrancobolli = document.querySelector('#usa-questi-francobolli')
-        usaQuestiFrancobolli.innerText = 'Usa questa combinazione: ' + currentSet.map(({ face_value }) => face_value).join(', ')
-    }
+    html += '</tr>'
+    postage.innerHTML = html
 }
 
 function useStamps() {
@@ -205,8 +176,6 @@ function useStamps() {
     myStamps = myStamps.filter(({ number }) => number > 0)
     saveStamps()
     postage.innerHTML = ''
-    buttonContainer.innerHTML = ''
-    spanTotal = ''
 }
 
 function calculate_stamps(stamps, postage, numberOfStamps) {
@@ -214,9 +183,8 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
     let range = 0;
     while (postage + range <= stamps[0].value * numberOfStamps) {
         let current_number_of_stamps = 1;
-        stampsFiltered = stamps.filter(({ value }) => value <= postage + range)
         while (current_number_of_stamps <= numberOfStamps) {
-            const stamps_combinations = combRep(stampsFiltered, current_number_of_stamps);
+            const stamps_combinations = combRep(stamps, current_number_of_stamps);
             for (const arr of stamps_combinations) {
                 const gg = arr.reduce((a, b) => ({ sum: a.sum + b.value, count: { ...a.count, [b.face_value]: ((a.count[b.face_value] || 0) + 1) } }), { sum: 0, count: {} })
                 if (
@@ -232,9 +200,8 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
         if (the_right_postage.length > 0) break;
         range++;
     }
-    spanTotal.innerHTML = `€${((range + postage) / 100).toFixed(2)}`
     const result =
-        the_right_postage[Math.floor(the_right_postage.length * Math.random())] || [];
+        the_right_postage[Math.floor(the_right_postage.length * Math.random())];
     return result;
 }
 
