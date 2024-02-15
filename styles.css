@@ -22,13 +22,21 @@ aside p {
     padding: 4px;
 }
 
-main {
-    width: 50%;
+main, fieldset {
     margin: 0 auto;
     border-radius: 4px;
     background-color: whitesmoke;
-    min-height: 100vh;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+fieldset {
+    margin-top: 15px;
+}
+
+main {
+    width: 40%;
+    min-height: 100vh;
+    padding: 10px;
 }
 
 body {
