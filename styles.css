@@ -15,3 +15,7 @@ aside {
     border: 1px black double;
     margin: 4px;
 }
+
+aside p {
+    padding: 4px;
+}

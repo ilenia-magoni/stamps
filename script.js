@@ -54,7 +54,7 @@ function saveStamps() {
 function showStamps() {
     let totalValue = 0
     let totalAmount = 0
-    let html = '<table><tr><td>valore facciale</td><td>valore (€)</td><td>quantità</td></tr>'
+    let html = '<legend>lista francobolli</legend><table><tr><td>valore facciale</td><td>valore (€)</td><td>quantità</td></tr>'
     for (let stamp of myStamps) {
         html += `<tr><td>${stamp.face_value}</td>
         <td>€${stamp.face_value[0] === 'L' ? (stamp.value / 100).toFixed(3) : (stamp.value / 100).toFixed(2)}</td>
