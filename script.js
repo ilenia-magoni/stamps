@@ -70,7 +70,6 @@ function showStamps() {
     <p>Valore totale: €${(totalValue/100).toFixed(2)}</p>
     <p>Numero denominazioni diverse: ${myStamps.length}</p>
     <p>Numero combinazioni calcolate: <span id="numb-comb">${Math.pow(myStamps.length, numeroFrancobolli.value).toExponential()}</span></p>`
-
 }
 
 numeroFrancobolli.addEventListener("change", () => {
