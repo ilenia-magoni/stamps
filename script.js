@@ -69,11 +69,11 @@ function showStamps() {
     aside.innerHTML = `<p>Numero totale francobolli: ${totalAmount}</p>
     <p>Valore totale: €${(totalValue/100).toFixed(2)}</p>
     <p>Numero denominazioni diverse: ${myStamps.length}</p>
-    <p>Numero combinazioni calcolate: <span id="numb-comb">${Math.pow(myStamps.length, numeroFrancobolli.value).toExponential()}</span></p>`
+    <p>Numero combinazioni calcolate: <span id="numb-comb">${Math.pow(myStamps.length, numeroFrancobolli.value).toExponential(2)}</span></p>`
 }
 
 numeroFrancobolli.addEventListener("change", () => {
-    document.querySelector('#numb-comb').innerText = Math.pow(myStamps.length, numeroFrancobolli.value).toExponential()
+    document.querySelector('#numb-comb').innerText = Math.pow(myStamps.length, numeroFrancobolli.value).toExponential(2)
 })
 
 function removeStamp(fv) {
