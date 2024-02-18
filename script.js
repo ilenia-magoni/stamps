@@ -67,7 +67,8 @@ function showStamps() {
     html += '</table>'
     fieldset.innerHTML = html
     aside.innerHTML = `<p>Numero totale francobolli: ${totalAmount}</p>
-    <p>Valore totale: €${(totalValue/100).toFixed(2)}</p>`
+    <p>Valore totale: €${(totalValue/100).toFixed(2)}</p>
+    <p>Numero denominazioni diverse: ${myStamps.length}</p>`
 
 }
 
