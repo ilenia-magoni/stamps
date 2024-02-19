@@ -67,7 +67,7 @@ function showStamps() {
     html += '</table>'
     fieldset.innerHTML = html
     aside.innerHTML = `<p>Numero totale francobolli: ${totalAmount}</p>
-    <p>Valore totale: €${(totalValue/100).toFixed(2)}</p>
+    <p>Valore totale: €${(totalValue / 100).toFixed(2)}</p>
     <p>Numero denominazioni diverse: ${myStamps.length}</p>
     <p>Numero combinazioni calcolate: <span id="numb-comb">${Math.pow(myStamps.length, numeroFrancobolli.value).toExponential(2)}</span></p>`
 }
@@ -87,6 +87,7 @@ function addStamps() {
     let face_value;
     let value;
     let number = Number(stampQuantity.value);
+    if (number % 1 !== 0) { alert("Quantity must be a whole number"); return }
     if (lire.checked) {
         face_value = `L.${stampValue.value}`
         value = (100 * stampValue.value / 1936.27)
