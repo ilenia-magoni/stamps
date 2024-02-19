@@ -147,7 +147,7 @@ function addStamps() {
 }
 function numberCombinations(x, y) {
     const z = Math.pow(x, y);
-    if (z > 1000) {
+    if (z > 9999) {
         return z.toExponential(2)}
      else {
         return z;
