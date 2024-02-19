@@ -69,11 +69,11 @@ function showStamps() {
     aside.innerHTML = `<p>Numero totale francobolli: ${totalAmount}</p>
     <p>Valore totale: €${(totalValue / 100).toFixed(2)}</p>
     <p>Numero denominazioni diverse: ${myStamps.length}</p>
-    <p>Numero combinazioni calcolate: <span id="numb-comb">${Math.pow(myStamps.length, numeroFrancobolli.value).toExponential(2)}</span></p>`
+    <p>Numero combinazioni calcolate: <span id="numb-comb">${numberCombinations(myStamps.length, numeroFrancobolli.value)}</span></p>`
 }
 
 numeroFrancobolli.addEventListener("change", () => {
-    document.querySelector('#numb-comb').innerText = Math.pow(myStamps.length, numeroFrancobolli.value).toExponential(2)
+    document.querySelector('#numb-comb').innerText = numberCombinations(myStamps.length, numeroFrancobolli.value)
 })
 
 function removeStamp(fv) {
@@ -144,6 +144,14 @@ function addStamps() {
 
     }
     saveStamps()
+}
+function numberCombinations(x, y) {
+    const z = Math.pow(x, y);
+    if (z > 1000) {
+        return z.toExponential(2)}
+     else {
+        return z;
+    }
 }
 
 function calculateStamps() {
