@@ -202,7 +202,6 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
         stampsFiltered = stamps.filter(({value}) => value <= postage + range)
         while (current_number_of_stamps <= numberOfStamps) {
             const stamps_combinations = combRep(stampsFiltered, current_number_of_stamps);
-            console.log(stamps_combinations)
             for (const arr of stamps_combinations) {
                 const gg = arr.reduce((a, b) => ({ sum: a.sum + b.value, count: { ...a.count, [b.face_value]: ((a.count[b.face_value] || 0) + 1) } }), { sum: 0, count: {} })
                 if (
