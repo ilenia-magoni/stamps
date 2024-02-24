@@ -22,6 +22,7 @@ const lettera = document.querySelector('#lettera')
 const scegliLettera = document.querySelector('#scegli-lettera')
 const stampValue = document.querySelector('#valore')
 const stampQuantity = document.querySelector('#quantity')
+const usaQuestiFrancobolli = document.querySelector('#usa-questi-francobolli')
 
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
@@ -180,6 +181,7 @@ function calculateStamps() {
     }
     html += '</tr>'
     postage.innerHTML = html
+    usaQuestiFrancobolli.innerText = 'Usa questa combinazione: ' + currentSet.map(({face_value}) => face_value).join(', ') 
 }
 
 function useStamps() {
