@@ -22,8 +22,7 @@ const lettera = document.querySelector('#lettera')
 const scegliLettera = document.querySelector('#scegli-lettera')
 const stampValue = document.querySelector('#valore')
 const stampQuantity = document.querySelector('#quantity')
-const usaQuestiFrancobolli = document.querySelector('#usa-questi-francobolli')
-
+const buttonContainer = document.querySelector('#button-container')
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
     myStamps = myStamps.filter(({ number }) => number > 0)
@@ -149,8 +148,9 @@ function addStamps() {
 function numberCombinations(x, y) {
     const z = Math.pow(x, y);
     if (z > 9999) {
-        return z.toExponential(2)}
-     else {
+        return z.toExponential(2)
+    }
+    else {
         return z;
     }
 }
@@ -181,7 +181,9 @@ function calculateStamps() {
     }
     html += '</tr>'
     postage.innerHTML = html
-    usaQuestiFrancobolli.innerText = 'Usa questa combinazione: ' + currentSet.map(({face_value}) => face_value).join(', ') 
+    buttonContainer.innerHTML = '<button id="usa-questi-francobolli" value="Usa questi francobolli" onclick="useStamps()">Usa</button>'
+    const usaQuestiFrancobolli = document.querySelector('#usa-questi-francobolli')
+    usaQuestiFrancobolli.innerText = 'Usa questa combinazione: ' + currentSet.map(({ face_value }) => face_value).join(', ')
 }
 
 function useStamps() {
@@ -192,6 +194,7 @@ function useStamps() {
     myStamps = myStamps.filter(({ number }) => number > 0)
     saveStamps()
     postage.innerHTML = ''
+    buttonContainer.innerHTML = ''
 }
 
 function calculate_stamps(stamps, postage, numberOfStamps) {
@@ -199,7 +202,7 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
     let range = 0;
     while (postage + range <= stamps[0].value * numberOfStamps) {
         let current_number_of_stamps = 1;
-        stampsFiltered = stamps.filter(({value}) => value <= postage + range)
+        stampsFiltered = stamps.filter(({ value }) => value <= postage + range)
         while (current_number_of_stamps <= numberOfStamps) {
             const stamps_combinations = combRep(stampsFiltered, current_number_of_stamps);
             for (const arr of stamps_combinations) {
