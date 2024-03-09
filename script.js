@@ -146,7 +146,8 @@ function addStamps() {
     saveStamps()
 }
 function numberCombinations(x, y) {
-    const z = Math.pow(x, y);
+    let z = 0
+    for (let n = y; n > 0; n--) { z += Math.pow(x, n); }
     if (z > 9999) {
         return z.toExponential(2)
     }
