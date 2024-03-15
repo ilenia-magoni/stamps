@@ -23,6 +23,7 @@ const scegliLettera = document.querySelector('#scegli-lettera')
 const stampValue = document.querySelector('#valore')
 const stampQuantity = document.querySelector('#quantity')
 const buttonContainer = document.querySelector('#button-container')
+const spanTotal = document.querySelector("span#total")
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
     myStamps = myStamps.filter(({ number }) => number > 0)
@@ -197,6 +198,7 @@ function useStamps() {
     saveStamps()
     postage.innerHTML = ''
     buttonContainer.innerHTML = ''
+    spanTotal = ''
 }
 
 function calculate_stamps(stamps, postage, numberOfStamps) {
@@ -222,6 +224,7 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
         if (the_right_postage.length > 0) break;
         range++;
     }
+    spanTotal.innerHTML = `€${((range + postage) / 100).toFixed(2)}`
     const result =
         the_right_postage[Math.floor(the_right_postage.length * Math.random())];
     return result;
