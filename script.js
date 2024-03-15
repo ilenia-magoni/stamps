@@ -179,14 +179,22 @@ function calculateStamps() {
     currentSet = calculate_stamps(myStamps, v, Number(numeroFrancobolli.value));
     let html = ''
     html += '<tr>'
+    let noStamps = true;
     for (let stamp of currentSet) {
         html += `<td><label><input name="stamps" type=checkbox>${stamp.face_value}</label></td>`
+        noStamps = false;
     }
-    html += '</tr>'
-    postage.innerHTML = html
-    buttonContainer.innerHTML = '<button id="usa-questi-francobolli" value="Usa questi francobolli" onclick="useStamps()">Usa</button>'
-    const usaQuestiFrancobolli = document.querySelector('#usa-questi-francobolli')
-    usaQuestiFrancobolli.innerText = 'Usa questa combinazione: ' + currentSet.map(({ face_value }) => face_value).join(', ')
+    if (noStamps) {
+        html += '<td>Nessuna combinazione possibile</td></tr>'
+        postage.innerHTML = html
+        buttonContainer.innerHTML = ''
+    } else {
+        html += '</tr>'
+        postage.innerHTML = html
+        buttonContainer.innerHTML = '<button id="usa-questi-francobolli" value="Usa questi francobolli" onclick="useStamps()">Usa</button>'
+        const usaQuestiFrancobolli = document.querySelector('#usa-questi-francobolli')
+        usaQuestiFrancobolli.innerText = 'Usa questa combinazione: ' + currentSet.map(({ face_value }) => face_value).join(', ')
+    }
 }
 
 function useStamps() {
@@ -226,7 +234,7 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
     }
     spanTotal.innerHTML = `€${((range + postage) / 100).toFixed(2)}`
     const result =
-        the_right_postage[Math.floor(the_right_postage.length * Math.random())];
+        the_right_postage[Math.floor(the_right_postage.length * Math.random())] || [];
     return result;
 }
 
