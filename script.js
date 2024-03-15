@@ -188,6 +188,7 @@ function calculateStamps() {
         html += '<td>Nessuna combinazione possibile</td></tr>'
         postage.innerHTML = html
         buttonContainer.innerHTML = ''
+        spanTotal.innerHTML = ``
     } else {
         html += '</tr>'
         postage.innerHTML = html
@@ -206,7 +207,7 @@ function useStamps() {
     saveStamps()
     postage.innerHTML = ''
     buttonContainer.innerHTML = ''
-    spanTotal = ''
+    spanTotal.innerHTML = ``
 }
 
 function calculate_stamps(stamps, postage, numberOfStamps) {
