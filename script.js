@@ -15,6 +15,14 @@ const B3 = document.querySelector('#B3')
 const other = document.querySelector('#other')
 const altriValori = document.querySelector('#valore-francobollo-calcolo')
 const numeroFrancobolli = document.querySelector('#quantita-francobolli-calcolo')
+const storedValue = localStorage.getItem('savedNumber');
+if (storedValue !== null) {
+    numeroFrancobolli.value = storedValue;
+}
+numeroFrancobolli.addEventListener('change', function() {
+    // Save the new value to local storage
+    localStorage.setItem('savedNumber', this.value);
+});
 const aside = document.querySelector('aside');
 const lire = document.querySelector('#lire')
 const euro = document.querySelector('#euro')
