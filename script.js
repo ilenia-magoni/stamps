@@ -241,7 +241,7 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
         if (the_right_postage.length > 0) break;
         range++;
     }
-    spanTotal.innerHTML = `€${((range + postage) / 100).toFixed(2)}`
+    spanTotal.innerHTML = `€${((range + postage) / 100).toFixed(2)} ~ (${the_right_postage.length} combinazioni)`
     const result =
         the_right_postage[Math.floor(the_right_postage.length * Math.random())] || [];
     return result;
