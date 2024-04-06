@@ -218,6 +218,7 @@ function useStamps() {
     postage.innerHTML = ''
     buttonContainer.innerHTML = ''
     spanTotal.innerHTML = ``
+    francobollo_da_usare = null
 }
 
 function calculate_stamps(stamps, postage, numberOfStamps) {
