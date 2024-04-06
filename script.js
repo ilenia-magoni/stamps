@@ -16,6 +16,7 @@ const other = document.querySelector('#other')
 const altriValori = document.querySelector('#valore-francobollo-calcolo')
 const numeroFrancobolli = document.querySelector('#quantita-francobolli-calcolo')
 const storedValue = localStorage.getItem('savedNumber');
+let francobollo_da_usare = null;
 if (storedValue !== null) {
     numeroFrancobolli.value = storedValue;
 }
@@ -63,12 +64,13 @@ function saveStamps() {
 function showStamps() {
     let totalValue = 0
     let totalAmount = 0
-    let html = '<legend>lista francobolli</legend><table><tr><td>valore facciale</td><td>valore (€)</td><td>quantità</td><td>valore totale</td></tr>'
+    let html = '<legend>lista francobolli</legend><table><tr><td>valore facciale</td><td>valore (€)</td><td>quantità</td><td>valore totale</td><td><label><input type=radio name=stamp onclick="francobollo_da_usare = null" checked>Seleziona nessun francobollo</label></td></tr>'
     for (let stamp of myStamps) {
         html += `<tr><td>${stamp.face_value}</td>
         <td>€${stamp.face_value[0] === 'L' ? (stamp.value / 100).toFixed(3) : (stamp.value / 100).toFixed(2)}</td>
         <td>${stamp.number}</td>
         <td>€${(stamp.number * stamp.value / 100).toFixed(2)}</td>
+        <td><label><input type=radio name=stamp onclick="francobollo_da_usare = '${stamp.face_value}'" > Usa questo francobollo</label></td>
         <td><button onclick="removeStamp('${stamp.face_value}')">Elimina francobollo</button></td>
         </tr>`
         totalValue += stamp.value * stamp.number
@@ -232,7 +234,7 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
                     Math.round(gg.sum) === postage + range
                     && Object.keys(gg.count).every(
                         x => (gg.count[x] <= arr.find(stamp => stamp.face_value === x).number)
-                    )) {
+                    ) && (francobollo_da_usare ? arr.some(stamp => stamp.face_value === francobollo_da_usare) : true)) {
                     the_right_postage.push(arr);
                 }
             }
