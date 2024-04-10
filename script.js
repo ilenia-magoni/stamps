@@ -156,6 +156,8 @@ function addStamps() {
 
     }
     saveStamps()
+    stampQuantity.value = ''
+    stampValue.value = ''
 }
 function numberCombinations(x, y) {
     let z = 0
