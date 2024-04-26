@@ -5,6 +5,23 @@ let myStamps = [
         number: 14
     }*/
 ];
+const facialDen = {
+    A: { max_weight: 100, valore: 290, nome: "A" },
+    B: { max_weight: 20, valore: 125, nome: "B" },
+    A1: { max_weight: 50, valore: 360, nome: "A Zona 1" },
+    B1: { max_weight: 20, valore: 130, nome: "B Zona 1" },
+    A2: { max_weight: 50, valore: 465, nome: "A Zona 2" },
+    B2: { max_weight: 20, valore: 245, nome: "B Zona 2" },
+    A3: { max_weight: 50, valore: 570, nome: "A Zona 3" },
+    B3: { max_weight: 20, valore: 320, nome: "B Zona 3" },
+    B_50: { max_weight: 50, valore: 275, nome: "B 50g" },
+    B1_50: { max_weight: 50, valore: 315, nome: "B Zona 1 50g" },
+    B2_50: { max_weight: 50, valore: 400, nome: "B Zona 2 50g" },
+    B3_50: { max_weight: 50, valore: 495, nome: "B Zona 3 50g" }
+}
+const tendina = document.querySelector("#scegli-lettera");
+tendina.innerHTML = Object.keys(facialDen).sort((x, y) => facialDen[x].valore - facialDen[y].valore).map(x => `<option value="${x}">${facialDen[x].nome} (€${(facialDen[x].valore / 100).toFixed(2).replace('.', ',')})</option>`).join('')
+
 let currentSet = []
 const fieldset = document.querySelector('#francobolli')
 const tab = document.querySelector('#postage')
@@ -20,7 +37,7 @@ let francobollo_da_usare = null;
 if (storedValue !== null) {
     numeroFrancobolli.value = storedValue;
 }
-numeroFrancobolli.addEventListener('change', function() {
+numeroFrancobolli.addEventListener('change', function () {
     // Save the new value to local storage
     localStorage.setItem('savedNumber', this.value);
 });
@@ -122,28 +139,10 @@ function addStamps() {
 
     } else if (lettera.checked) {
         face_value = (function (lettera) {
-            switch (lettera) {
-                case 'B':
-                    return 'B'
-                case 'B1':
-                    return 'B zona 1'
-                case 'B2':
-                    return 'B zona 2'
-                case 'B3':
-                    return 'B zona 3'
-            }
+            return facialDen[lettera].nome
         })(scegliLettera.value)
         value = (function (lettera) {
-            switch (lettera) {
-                case 'B':
-                    return 125
-                case 'B1':
-                    return 130
-                case 'B2':
-                    return 245
-                case 'B3':
-                    return 320
-            }
+            return facialDen[lettera].valore
         })(scegliLettera.value)
     }
 
