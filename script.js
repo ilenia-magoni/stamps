@@ -6,19 +6,20 @@ let myStamps = [
     }*/
 ];
 const facialDen = {
-    A: { max_weight: 100, valore: 290, nome: "A" },
-    B: { max_weight: 20, valore: 125, nome: "B" },
-    A1: { max_weight: 50, valore: 360, nome: "A Zona 1" },
-    B1: { max_weight: 20, valore: 130, nome: "B Zona 1" },
-    A2: { max_weight: 50, valore: 465, nome: "A Zona 2" },
-    B2: { max_weight: 20, valore: 245, nome: "B Zona 2" },
-    A3: { max_weight: 50, valore: 570, nome: "A Zona 3" },
-    B3: { max_weight: 20, valore: 320, nome: "B Zona 3" },
-    B_50: { max_weight: 50, valore: 275, nome: "B 50g" },
-    B1_50: { max_weight: 50, valore: 315, nome: "B Zona 1 50g" },
-    B2_50: { max_weight: 50, valore: 400, nome: "B Zona 2 50g" },
-    B3_50: { max_weight: 50, valore: 495, nome: "B Zona 3 50g" }
+    A: { max_weight: 100, valore: 300, nome: "A" },
+    B: { max_weight: 20, valore: 130, nome: "B" },
+    A1: { max_weight: 50, valore: 375, nome: "A Zona 1" },
+    B1: { max_weight: 20, valore: 135, nome: "B Zona 1" },
+    A2: { max_weight: 50, valore: 485, nome: "A Zona 2" },
+    B2: { max_weight: 20, valore: 255, nome: "B Zona 2" },
+    A3: { max_weight: 50, valore: 595, nome: "A Zona 3" },
+    B3: { max_weight: 20, valore: 335, nome: "B Zona 3" },
+    B_50: { max_weight: 50, valore: 290, nome: "B 50g" },
+    B1_50: { max_weight: 50, valore: 330, nome: "B Zona 1 50g" },
+    B2_50: { max_weight: 50, valore: 415, nome: "B Zona 2 50g" },
+    B3_50: { max_weight: 50, valore: 515, nome: "B Zona 3 50g" }
 }
+const letterStamps = Object.keys(facialDen).map(x => facialDen[x].nome)
 const tendina = document.querySelector("#scegli-lettera");
 tendina.innerHTML = Object.keys(facialDen).sort((x, y) => facialDen[x].valore - facialDen[y].valore).map(x => `<option value="${x}">${facialDen[x].nome} (€${(facialDen[x].valore / 100).toFixed(2).replace('.', ',')})</option>`).join('')
 
@@ -53,8 +54,13 @@ const spanTotal = document.querySelector("span#total")
 function retrieveStamps() {
     myStamps = JSON.parse(localStorage.getItem('__myStamps')) ?? []
     myStamps = myStamps.filter(({ number }) => number > 0)
-        .map(({ face_value, value, number }) => ((face_value[0] === 'L') && (value % 1 === 0)) ? { face_value, number, value: Math.round(1000 * face_value.match(/\d+/)[0] / 1936.27) / 10 }
-            : { face_value, value, number })
+        .map((stamp) => {
+            const copy = letterStamps.map(x => x.toLowerCase())
+            if (copy.includes(stamp.face_value.toLowerCase())) {
+                stamp.value = facialDen[Object.keys(facialDen).find(key => stamp.face_value.toLowerCase() === facialDen[key].nome.toLowerCase())].valore;
+            }
+            return stamp
+        })
     sortStamps()
     saveStamps()
 }
@@ -62,12 +68,15 @@ function retrieveStamps() {
 retrieveStamps()
 
 function sortStamps() {
-    myStamps.sort(
-        (a, b) =>
-            (b.value - a.value)
-            || (b.face_value[0] === a.face_value[0] ? 0 : b.face_value[0] === 'L' ? -1 : 1)
-            || (Number(b.face_value.match(/\d+/)[0]) - Number(a.face_value.match(/\d+/)[0]))
-    )
+    if (myStamps.length < 2) { } else {
+        myStamps.sort(
+            (a, b) => {
+                return (b.value - a.value)
+                || (b.face_value[0] === a.face_value[0] ? 0 : b.face_value[0] === 'L' ? -1 : 1)
+                || (Number(b.face_value.match(/\d+/)[0]) - Number(a.face_value.match(/\d+/)[0]))
+            }
+        )
+    }
     showStamps()
 }
 
@@ -173,16 +182,16 @@ function calculateStamps() {
     let v;
     switch (true) {
         case B.checked:
-            v = 125;
+            v = facialDen['B'].valore;
             break
         case B1.checked:
-            v = 130
+            v = facialDen['B1'].valore;
             break
         case B2.checked:
-            v = 245
+            v = facialDen['B2'].valore;
             break
         case B3.checked:
-            v = 320
+            v = facialDen['B3'].valore;
             break
         case other.checked:
             v = Math.round(altriValori.value * 100)
