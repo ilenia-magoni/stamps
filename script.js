@@ -195,52 +195,67 @@ function numberCombinations(x, y) {
 
 function calculateStamps() {
     let v;
+    let t;
     switch (true) {
         case B.checked:
             v = facialDen['B'].valore;
-            break
+            t = facialDen['B'].nome;
+            break;
         case B1.checked:
             v = facialDen['B1'].valore;
-            break
+            t = facialDen['B1'].nome;
+            break;
         case B2.checked:
             v = facialDen['B2'].valore;
-            break
+            t = facialDen['B2'].nome;
+            break;
         case B3.checked:
             v = facialDen['B3'].valore;
-            break
+            t = facialDen['B3'].nome;
+            break;
 
         case B_50.checked:
             v = facialDen['B_50'].valore;
+            t = facialDen['B_50'].nome;
             break
         case B1_50.checked:
             v = facialDen['B1_50'].valore;
+            t = facialDen['B1_50'].valore;
             break
         case B2_50.checked:
             v = facialDen['B2_50'].valore;
+            t = facialDen['B2_50'].nome;
             break
         case B3_50.checked:
             v = facialDen['B3_50'].valore;
+            t = facialDen['B3_50'].nome;
             break
 
         case A.checked:
             v = facialDen['A'].valore;
+            t = facialDen['A'].nome;
             break
         case A1.checked:
             v = facialDen['A1'].valore;
+            t = facialDen['A1'].nome;
             break
         case A2.checked:
             v = facialDen['A2'].valore;
+            t = facialDen['A2'].nome;
             break
         case A3.checked:
             v = facialDen['A3'].valore;
+            t = facialDen['A3'].nome;
             break
         // case piego2.checked:
         //     v = 135;
         case other.checked:
             v = Math.round(altriValori.value * 100)
+            t = altriValori.value;
+            break;
     }
     currentSet = calculate_stamps(myStamps, v, Number(numeroFrancobolli.value));
-    let html = ''
+    let html = ``;
     html += '<tr>'
     let noStamps = true;
     for (let stamp of currentSet) {
@@ -254,6 +269,7 @@ function calculateStamps() {
         spanTotal.innerHTML = ``
     } else {
         html += '</tr>'
+        selectedValue.innerText = `Valore selezionato: ${other.checked ? `€${Number(t).toFixed(2)}` : `${t} (€${(v / 100).toFixed(2).replace('.', ',')})`}`;
         postage.innerHTML = html
         buttonContainer.innerHTML = '<button id="usa-questi-francobolli" value="Usa questi francobolli" onclick="useStamps()">Usa</button>'
         const usaQuestiFrancobolli = document.querySelector('#usa-questi-francobolli')
