@@ -26,10 +26,25 @@ tendina.innerHTML = Object.keys(facialDen).sort((x, y) => facialDen[x].valore - 
 let currentSet = []
 const fieldset = document.querySelector('#francobolli')
 const tab = document.querySelector('#postage')
-const B = document.querySelector('#B')
-const B1 = document.querySelector('#B1')
-const B2 = document.querySelector('#B2')
-const B3 = document.querySelector('#B3')
+
+const B = document.querySelector('#B');
+const B1 = document.querySelector('#B1');
+const B2 = document.querySelector('#B2');
+const B3 = document.querySelector('#B3');
+
+const B_50 = document.querySelector('#B_50');
+const B1_50 = document.querySelector('#B1_50');
+const B2_50 = document.querySelector('#B2_50');
+const B3_50 = document.querySelector('#B3_50');
+
+const A = document.querySelector('#A');
+const A1 = document.querySelector('#A1');
+const A2 = document.querySelector('#A2');
+const A3 = document.querySelector('#A3');
+
+// const piego2 = document.querySelector('#piego2');
+// const piego5 = document.querySelector('#piego5');
+
 const other = document.querySelector('#other')
 const altriValori = document.querySelector('#valore-francobollo-calcolo')
 const numeroFrancobolli = document.querySelector('#quantita-francobolli-calcolo')
@@ -193,6 +208,34 @@ function calculateStamps() {
         case B3.checked:
             v = facialDen['B3'].valore;
             break
+
+        case B_50.checked:
+            v = facialDen['B_50'].valore;
+            break
+        case B1_50.checked:
+            v = facialDen['B1_50'].valore;
+            break
+        case B2_50.checked:
+            v = facialDen['B2_50'].valore;
+            break
+        case B3_50.checked:
+            v = facialDen['B3_50'].valore;
+            break
+
+        case A.checked:
+            v = facialDen['A'].valore;
+            break
+        case A1.checked:
+            v = facialDen['A1'].valore;
+            break
+        case A2.checked:
+            v = facialDen['A2'].valore;
+            break
+        case A3.checked:
+            v = facialDen['A3'].valore;
+            break
+        // case piego2.checked:
+        //     v = 135;
         case other.checked:
             v = Math.round(altriValori.value * 100)
     }
