@@ -42,3 +42,7 @@ main {
 body {
     background-color: cornflowerblue;
 }
+
+tr:hover {
+    background-color: lightgray;
+}
