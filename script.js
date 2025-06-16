@@ -42,8 +42,8 @@ const A1 = document.querySelector('#A1');
 const A2 = document.querySelector('#A2');
 const A3 = document.querySelector('#A3');
 
-// const piego2 = document.querySelector('#piego2');
-// const piego5 = document.querySelector('#piego5');
+const piego2 = document.querySelector('#piego2');
+const piego5 = document.querySelector('#piego5');
 
 const other = document.querySelector('#other')
 const altriValori = document.querySelector('#valore-francobollo-calcolo')
@@ -247,8 +247,14 @@ function calculateStamps() {
             v = facialDen['A3'].valore;
             t = facialDen['A3'].nome;
             break
-        // case piego2.checked:
-        //     v = 135;
+        case piego2.checked:
+            v = 145;
+            t = "Piego di libri 2kg";
+            break;
+        case piego5.checked:
+            v = 395;
+            t = "Piego di libri 5kg";
+            break;
         case other.checked:
             v = Math.round(altriValori.value * 100)
             t = altriValori.value;
@@ -269,7 +275,7 @@ function calculateStamps() {
         spanTotal.innerHTML = ``
     } else {
         html += '</tr>'
-        selectedValue.innerText = `Valore selezionato: ${other.checked ? `€${Number(t).toFixed(2)}` : `${t} (€${(v / 100).toFixed(2).replace('.', ',')})`}`;
+        selectedValue.innerText = `Valore selezionato: ${(other.checked) ? `€${Number(t).toFixed(2)}` : `${t} (€${(v / 100).toFixed(2).replace('.', ',')})`}`;
         postage.innerHTML = html
         buttonContainer.innerHTML = '<button id="usa-questi-francobolli" value="Usa questi francobolli" onclick="useStamps()">Usa</button>'
         const usaQuestiFrancobolli = document.querySelector('#usa-questi-francobolli')
