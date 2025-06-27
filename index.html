@@ -69,35 +69,156 @@
             <div id="form-messages" class="form-messages"></div>
             </div>
         </fieldset>
-        <fieldset>
-            <legend>Calcolami francobolli per</legend>
-            <label><input type="radio" value="B" id="B" name="money"> B</label>
-            <label><input type="radio" value="B1" id="B1" checked name="money"> B zona 1</label>
-            <label><input type="radio" value="B2" id="B2" name="money"> B zona 2</label>
-            <label><input type="radio" value="B3" id="B3" name="money"> B zona 3</label><br>
+        <fieldset class="calculate-stamps-form">
+            <legend class="collapsible-legend" onclick="toggleCollapse('calculate-stamps-content')">
+                <span class="collapse-icon">▼</span>
+                Calcolami francobolli per
+            </legend>
+            
+            <div id="calculate-stamps-content" class="collapsible-content">
+                <div class="form-group">
+                    <label class="form-label">Tipo di spedizione:</label>
+                    <div class="radio-group">
+                        <div class="radio-category">
+                            <span class="category-title">Lettere Standard</span>
+                            <div class="radio-subgroup">
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="B" id="B" name="money">
+                                        <span class="radio-text">B (20g)</span>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="B1" id="B1" name="money">
+                                        <span class="radio-text">B Zona 1 (20g)</span>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="B2" id="B2" name="money">
+                                        <span class="radio-text">B Zona 2 (20g)</span>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="B3" id="B3" name="money">
+                                        <span class="radio-text">B Zona 3 (20g)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
 
-            <label><input type="radio" value="B_50" id="B_50" name="money"> B 50g</label>
-            <label><input type="radio" value="B1_50" id="B1_50" checked name="money"> B zona 1 50g</label>
-            <label><input type="radio" value="B2_50" id="B2_50" name="money"> B zona 2 50g</label>
-            <label><input type="radio" value="B3_50" id="B3_50" name="money"> B zona 3 50g</label><br>
+                        <div class="radio-category">
+                            <span class="category-title">Lettere 50g</span>
+                            <div class="radio-subgroup">
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="B_50" id="B_50" name="money">
+                                        <span class="radio-text">B 50g</span>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="B1_50" id="B1_50" checked name="money">
+                                        <span class="radio-text">B Zona 1 50g</span>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="B2_50" id="B2_50" name="money">
+                                        <span class="radio-text">B Zona 2 50g</span>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="B3_50" id="B3_50" name="money">
+                                        <span class="radio-text">B Zona 3 50g</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
 
-            <label><input type="radio" value="A" id="A" name="money"> A (100g)</label>
-            <label><input type="radio" value="A1" id="A1" checked name="money"> A zona 1 (50g)</label>
-            <label><input type="radio" value="A2" id="A2" name="money"> A zona 2 (50g)</label>
-            <label><input type="radio" value="A3" id="A3" name="money"> A zona 3 (50g)</label><br>
+                        <div class="radio-category">
+                            <span class="category-title">Raccomandate e Pacchi</span>
+                            <div class="radio-subgroup">
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="A" id="A" name="money">
+                                        <span class="radio-text">A (100g)</span>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="A1" id="A1" name="money">
+                                        <span class="radio-text">A Zona 1 (50g)</span>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="A2" id="A2" name="money">
+                                        <span class="radio-text">A Zona 2 (50g)</span>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="A3" id="A3" name="money">
+                                        <span class="radio-text">A Zona 3 (50g)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
 
-            <label><input type="radio" value="piego2" id="piego2" name="money"> Piego libri 2kg</label>
-            <label><input type="radio" value="piego5" id="piego5" name="money"> Piego libri 5kg</label><br>
+                        <div class="radio-category">
+                            <span class="category-title">Piego Libri</span>
+                            <div class="radio-subgroup">
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="piego2" id="piego2" name="money">
+                                        <span class="radio-text">Piego libri 2kg</span>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="piego5" id="piego5" name="money">
+                                        <span class="radio-text">Piego libri 5kg</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
 
-            <label><input type="radio" value="other" id="other" name="money"> Altro</label> <label>€<input type="number"
-                    id="valore-francobollo-calcolo"></label>
-            <br><label>Massimo numero francobolli <input type="number" min="1" value="4"
-                    id="quantita-francobolli-calcolo"></label>
-            <br>
-            <button id="calcola" value="Calcola" onclick="calculateStamps()">Calcola</button><span id="total"></span></spam>
-            <table id="postage"></table>
-            <span id="selectedValue"></span><br>
-            <span id="button-container"></span>
+                        <div class="radio-category">
+                            <span class="category-title">Valore Personalizzato</span>
+                            <div class="radio-subgroup">
+                                <label class="radio-label custom-value-label">
+                                    <div class="radio-row">
+                                        <input type="radio" value="other" id="other" name="money">
+                                        <span class="radio-text">Altro</span>
+                                    </div>
+                                    <input type="number" id="valore-francobollo-calcolo" class="custom-value-input" placeholder="€0.00" step="0.01" min="0.01" style="display: none;">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantita-francobolli-calcolo" class="form-label">Massimo numero francobolli:</label>
+                    <input type="number" min="1" value="4" id="quantita-francobolli-calcolo" class="form-input" placeholder="es. 4">
+                </div>
+
+                <button id="calcola" onclick="calculateStamps()" class="calculate-button">
+                    <span class="button-icon">🧮</span>
+                    Calcola Combinazioni
+                </button>
+                
+                <div class="calculation-results">
+                    <span id="total"></span>
+                    <span id="selectedValue"></span>
+                    <table id="postage"></table>
+                    <div id="button-container"></div>
+                </div>
+            </div>
         </fieldset>
         <fieldset id="francobolli">
         </fieldset>

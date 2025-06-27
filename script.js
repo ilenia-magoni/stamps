@@ -543,7 +543,8 @@ window.addStamps = function() {
 // Collapsible section functionality
 function toggleCollapse(contentId) {
     const content = document.getElementById(contentId);
-    const icon = document.querySelector('.collapse-icon');
+    const legend = content.previousElementSibling;
+    const icon = legend.querySelector('.collapse-icon');
     
     if (content.classList.contains('collapsed')) {
         // Expand
@@ -557,3 +558,61 @@ function toggleCollapse(contentId) {
         icon.textContent = '▶';
     }
 }
+
+// Custom value input functionality for calculation section
+const otherRadio = document.querySelector('#other');
+const customValueInput = document.querySelector('#valore-francobollo-calcolo');
+
+// Add event listeners to all radio buttons in calculation section
+const postageRadios = document.querySelectorAll('input[name="money"]');
+postageRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+        if (otherRadio.checked) {
+            customValueInput.style.display = 'block';
+            customValueInput.focus();
+        } else {
+            customValueInput.style.display = 'none';
+            customValueInput.value = '';
+        }
+    });
+});
+
+// Initialize the state on page load
+if (otherRadio.checked) {
+    customValueInput.style.display = 'block';
+} else {
+    customValueInput.style.display = 'none';
+}
+
+// Validation for custom value input
+customValueInput.addEventListener('input', function() {
+    const value = this.value;
+    if (value && (isNaN(value) || value <= 0)) {
+        this.style.borderColor = '#e53e3e';
+    } else {
+        this.style.borderColor = '#e2e8f0';
+    }
+});
+
+// Enhanced calculateStamps function with validation
+const originalCalculateStamps = window.calculateStamps;
+window.calculateStamps = function() {
+    // Check if other is selected and validate custom value
+    if (otherRadio.checked) {
+        const customValue = customValueInput.value;
+        if (!customValue || isNaN(customValue) || customValue <= 0) {
+            // Show error message in calculation section
+            const calcResults = document.querySelector('.calculation-results');
+            calcResults.innerHTML = '<div class="error-message">Per favore inserisci un valore valido per la spedizione personalizzata</div>';
+            return;
+        }
+    }
+    
+    try {
+        originalCalculateStamps();
+    } catch (error) {
+        const calcResults = document.querySelector('.calculation-results');
+        calcResults.innerHTML = '<div class="error-message">Errore durante il calcolo delle combinazioni</div>';
+        console.error('Error calculating stamps:', error);
+    }
+};
