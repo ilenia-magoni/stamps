@@ -242,7 +242,7 @@ function calculateStamps() {
         case A2.checked:
             v = facialDen['A2'].valore;
             t = facialDen['A2'].nome;
-            break
+            break;
         case A3.checked:
             v = facialDen['A3'].valore;
             t = facialDen['A3'].nome;
@@ -368,3 +368,84 @@ function map_to_lire(arr) {
         }
     });
 }
+
+// Form interaction handlers
+const euroRadio = document.querySelector('#euro');
+const lireRadio = document.querySelector('#lire');
+const letterRadio = document.querySelector('#lettera');
+const letterSelect = document.querySelector('#scegli-lettera');
+const valueInputGroup = document.querySelector("#value-input-group");
+const letterSelectGroup = document.querySelector("#letter-select-group");
+
+// Handle radio button changes to show/hide letter selection vs value input
+function handleCurrencyChange() {
+    if (letterRadio.checked) {
+        valueInputGroup.style.display = "none";
+        letterSelectGroup.style.display = "block";
+    } else {
+        valueInputGroup.style.display = "block";
+        letterSelectGroup.style.display = "none";
+    }
+}
+
+// Add event listeners for currency type changes
+euroRadio.addEventListener("change", handleCurrencyChange);
+lireRadio.addEventListener("change", handleCurrencyChange);
+letterRadio.addEventListener("change", handleCurrencyChange);
+
+// Initialize the form state
+handleCurrencyChange();
+
+// Form validation and user feedback functions
+function showMessage(message, type = 'success') {
+    const messagesDiv = document.querySelector('#form-messages');
+    messagesDiv.innerHTML = `<div class="${type}-message">${message}</div>`;
+    
+    // Clear message after 3 seconds
+    setTimeout(() => {
+        messagesDiv.innerHTML = '';
+    }, 3000);
+}
+
+function validateForm() {
+    const quantity = document.querySelector('#quantity').value;
+    const value = document.querySelector('#valore').value;
+    
+    if (!quantity || quantity <= 0) {
+        showMessage('Per favore inserisci una quantità valida (maggiore di 0)', 'error');
+        return false;
+    }
+    
+    if (quantity % 1 !== 0) {
+        showMessage('La quantità deve essere un numero intero', 'error');
+        return false;
+    }
+    
+    if (!letterRadio.checked && (!value || value <= 0)) {
+        showMessage('Per favore inserisci un valore valido (maggiore di 0)', 'error');
+        return false;
+    }
+    
+    if (letterRadio.checked && !letterSelect.value) {
+        showMessage('Per favore seleziona un tipo di francobollo per lettera', 'error');
+        return false;
+    }
+    
+    return true;
+}
+
+// Enhanced addStamps function with validation
+const originalAddStamps = window.addStamps;
+window.addStamps = function() {
+    if (!validateForm()) {
+        return;
+    }
+    
+    try {
+        originalAddStamps();
+        showMessage('Francobolli aggiunti con successo!', 'success');
+    } catch (error) {
+        showMessage('Errore durante l\'aggiunta dei francobolli', 'error');
+        console.error('Error adding stamps:', error);
+    }
+};

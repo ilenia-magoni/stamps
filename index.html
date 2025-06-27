@@ -7,18 +7,62 @@
 </head>
 
 <body>
-    v 0.17.2
+    <header>
+        <h1>📮 Stamp Calculator</h1>
+        <p>Gestisci la tua collezione di francobolli e calcola le combinazioni perfette</p>
+        <span class="version">v 0.17.2</span>
+    </header>
     <main>
-        <fieldset>
+        <fieldset class="add-stamps-form">
             <legend>Aggiungi francobolli alla lista</legend>
-            <label for="euro"></label><input checked id="euro" type="radio" name="valuta" value="euro">€</label>
-            <label for="lire"></label><input id="lire" type="radio" name="valuta" value="lira">L.</label>
-            <input id="lettera" type="radio" name="valuta" value="lettera"><select id="scegli-lettera">
-                
-            </select><br>
-            <label>Quantita: <input type="number" id="quantity"></label>
-            <br><label>Valore: <input id="valore" type="number" min="1"></label><br>
-            <button onclick="addStamps()">Add Stamps</button>
+            
+            <div class="form-group">
+                <label class="form-label">Tipo di valuta:</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <div class="radio-row">
+                            <input checked id="euro" type="radio" name="valuta" value="euro">
+                            <span class="radio-text">€ Euro</span>
+                        </div>
+                    </label>
+                    <label class="radio-label">
+                        <div class="radio-row">
+                            <input id="lire" type="radio" name="valuta" value="lira">
+                            <span class="radio-text">L. Lire</span>
+                        </div>
+                    </label>
+                    <label class="radio-label">
+                        <div class="radio-row">
+                            <input id="lettera" type="radio" name="valuta" value="lettera">
+                            <span class="radio-text">Denominazione a lettera (A, B, ecc.)</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label for="quantity" class="form-label">Quantità:</label>
+                    <input type="number" id="quantity" min="1" step="1" class="form-input" placeholder="es. 10">
+                </div>
+                <div class="form-group" id="value-input-group">
+                    <label for="valore" class="form-label">Valore:</label>
+                    <input id="valore" type="number" min="0" step="0.01" class="form-input" placeholder="es. 1.30">
+                </div>
+                <div class="form-group" id="letter-select-group" style="display: none;">
+                    <label for="scegli-lettera" class="form-label">Denominazione:</label>
+                    <select id="scegli-lettera" class="letter-select">
+                        <!-- Options populated by JavaScript -->
+                    </select>
+                </div>
+            </div>
+
+            <button onclick="addStamps()" class="add-button">
+                <span class="button-icon">➕</span>
+                Aggiungi Francobolli
+            </button>
+            
+            <div id="form-messages" class="form-messages"></div>
         </fieldset>
         <fieldset>
             <legend>Calcolami francobolli per</legend>
