@@ -101,6 +101,14 @@ tr:hover {
     margin-bottom: 1.5rem;
 }
 
+/* Ensure proper spacing between radio groups and form inputs */
+.calculate-stamps-form .form-group {
+    clear: both;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
+}
+
 .form-label {
     display: block;
     font-weight: 500;
@@ -159,6 +167,18 @@ tr:hover {
     font-size: 0.95rem;
     color: #4a5568;
     transition: all 0.2s ease;
+}
+
+.weight-info {
+    color: #718096;
+    font-size: 0.85rem;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.radio-label input[type="radio"]:checked + .radio-text .weight-info {
+    color: #4c6ef5;
+    opacity: 1;
 }
 
 .letter-select {
@@ -291,9 +311,9 @@ tr:hover {
 }
 
 .collapsible-content {
-    overflow: hidden;
+    overflow: visible;
     transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease, margin 0.3s ease;
-    max-height: 1000px;
+    max-height: none;
     opacity: 1;
 }
 
@@ -334,6 +354,7 @@ tr:hover {
 
 .radio-category {
     margin-bottom: 1.5rem;
+    overflow: visible;
 }
 
 .category-title {
@@ -352,16 +373,29 @@ tr:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 0.5rem;
+    align-items: start;
+    grid-auto-rows: min-content;
+}
+
+.custom-value-label {
+    min-height: auto !important;
+    align-items: stretch !important;
+    overflow: visible;
+    position: relative;
 }
 
 .custom-value-label .custom-value-input {
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.75rem;
     border: 2px solid #e2e8f0;
-    border-radius: 6px;
-    font-size: 0.9rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
     transition: border-color 0.2s ease;
+    height: 3.25rem;
+    line-height: 1.5;
+    position: relative;
+    z-index: 2;
 }
 
 .custom-value-label .custom-value-input:focus {
@@ -459,6 +493,18 @@ tr:hover {
 .calculate-stamps-form:has(.collapsible-content.collapsed) legend {
     font-size: 1rem;
     padding: 0 0.5rem;
+}
+
+/* Ensure custom value radio label can expand properly */
+.custom-value-label:has(.custom-value-input[style*="block"]) {
+    align-items: stretch;
+    min-height: auto;
+}
+
+/* Make sure the custom input field doesn't get cut off */
+.custom-value-label .custom-value-input[style*="block"] {
+    display: block !important;
+    margin-top: 0.75rem;
 }
 
 @media (max-width: 768px) {

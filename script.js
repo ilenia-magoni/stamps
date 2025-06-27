@@ -220,7 +220,7 @@ function calculateStamps() {
             break
         case B1_50.checked:
             v = facialDen['B1_50'].valore;
-            t = facialDen['B1_50'].valore;
+            t = facialDen['B1_50'].nome;
             break
         case B2_50.checked:
             v = facialDen['B2_50'].valore;
@@ -297,17 +297,34 @@ function useStamps() {
 }
 
 function calculate_stamps(stamps, postage, numberOfStamps) {
+    // Safety check: ensure we have stamps
+    if (!stamps || stamps.length === 0) {
+        spanTotal.innerHTML = "Nessun francobollo disponibile";
+        return [];
+    }
+    
     const the_right_postage = [];
     let range = 0;
-    while (postage + range <= stamps[0].value * numberOfStamps) {
+    const maxRange = Math.max(stamps[0]?.value || 0, postage);
+    
+    while (range <= maxRange && the_right_postage.length === 0) {
         let current_number_of_stamps = 1;
-        stampsFiltered = stamps.filter(({ value }) => Math.round(value) <= postage + range)
+        const targetValue = postage + range;
+        const stampsFiltered = stamps.filter(({ value }) => Math.round(value) <= targetValue)
+        
+        // Safety check: ensure we have filtered stamps
+        if (stampsFiltered.length === 0) {
+            range++;
+            continue;
+        }
+        
         while (current_number_of_stamps <= numberOfStamps) {
             const stamps_combinations = combRep(stampsFiltered, current_number_of_stamps);
             for (const arr of stamps_combinations) {
                 const gg = arr.reduce((a, b) => ({ sum: a.sum + b.value, count: { ...a.count, [b.face_value]: ((a.count[b.face_value] || 0) + 1) } }), { sum: 0, count: {} })
-                if (
-                    Math.round(gg.sum) === postage + range
+                
+                // Check if the sum exactly matches the target value
+                if (Math.round(gg.sum) === targetValue
                     && Object.keys(gg.count).every(
                         x => (gg.count[x] <= arr.find(stamp => stamp.face_value === x).number)
                     ) && (francobollo_da_usare ? arr.some(stamp => stamp.face_value === francobollo_da_usare) : true)) {
@@ -319,7 +336,9 @@ function calculate_stamps(stamps, postage, numberOfStamps) {
         if (the_right_postage.length > 0) break;
         range++;
     }
-    spanTotal.innerHTML = `€${((range + postage) / 100).toFixed(2)} ~ (${the_right_postage.length} combinazioni)`
+    
+    const finalValue = postage + range;
+    spanTotal.innerHTML = `€${(finalValue / 100).toFixed(2)} ~ (${the_right_postage.length} combinazioni)`
     const result =
         the_right_postage[Math.floor(the_right_postage.length * Math.random())] || [];
     return result;
