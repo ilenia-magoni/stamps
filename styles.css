@@ -40,18 +40,56 @@ header .version {
 }
 
 aside {
-    position: absolute;
+    position: fixed;
     background: white;
-    top: 0;
-    right: 0;
-    border: 1px black double;
-    margin: 4px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-    border-radius: 6px;
+    top: 2rem;
+    right: 2rem;
+    border: 2px solid #e1e8ed;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+    min-width: 280px;
+    max-width: 320px;
+    z-index: 1000;
 }
 
 aside p {
-    padding: 4px;
+    margin: 0 0 0.75rem 0;
+    font-size: 0.9rem;
+    color: #4a5568;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+aside p:last-child {
+    margin-bottom: 0;
+}
+
+aside p strong {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+/* Add icons and better formatting to aside stats */
+aside p:first-child::before {
+    content: "📊 ";
+    margin-right: 0.5rem;
+}
+
+aside p:nth-child(2)::before {
+    content: "💰 ";
+    margin-right: 0.5rem;
+}
+
+aside p:nth-child(3)::before {
+    content: "🏷️ ";
+    margin-right: 0.5rem;
+}
+
+aside p:nth-child(4)::before {
+    content: "🧮 ";
+    margin-right: 0.5rem;
 }
 
 main, fieldset {
@@ -79,7 +117,7 @@ body {
 }
 
 tr:hover {
-    background-color: lightgray;
+    background-color: #f0f4ff !important;
 }
 
 /* Form styling improvements */
@@ -453,8 +491,13 @@ tr:hover {
 
 .calculation-results #postage {
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
 }
 
 .calculation-results #postage td {
@@ -507,16 +550,231 @@ tr:hover {
     margin-top: 0.75rem;
 }
 
+/* Stamps collection table styling */
+#francobolli {
+    background: white;
+    border: 2px solid #e1e8ed;
+    border-radius: 12px;
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+#francobolli legend {
+    font-weight: 600;
+    color: #1a202c;
+    padding: 0 1rem;
+    font-size: 1.1rem;
+    text-transform: capitalize;
+}
+
+#francobolli table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+}
+
+#francobolli table th,
+#francobolli table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+}
+
+#francobolli table th {
+    background: #f8fafc;
+    font-weight: 600;
+    color: #2d3748;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+#francobolli table tr:hover {
+    background-color: #f0f4ff;
+}
+
+#francobolli table tr:last-child td {
+    border-bottom: none;
+}
+
+#francobolli table tr:first-child td {
+    font-weight: 500;
+    background: #f8fafc;
+}
+
+/* Style radio buttons in the stamps table */
+#francobolli table label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #4a5568;
+    gap: 0.5rem;
+}
+
+#francobolli table input[type="radio"] {
+    margin: 0;
+    transform: scale(1.1);
+    accent-color: #667eea;
+}
+
+#francobolli table label:has(input[type="radio"]:checked) {
+    color: #667eea;
+    font-weight: 500;
+}
+
+/* Remove stamp button styling */
+.remove-stamp-btn {
+    background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.remove-stamp-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(229, 62, 62, 0.3);
+}
+
+.remove-stamp-btn:active {
+    transform: translateY(0);
+}
+
+/* Modern aside styling */
+aside {
+    position: fixed;
+    background: white;
+    top: 2rem;
+    right: 2rem;
+    border: 2px solid #e1e8ed;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+    min-width: 280px;
+    max-width: 320px;
+    z-index: 1000;
+}
+
+aside p {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.9rem;
+    color: #4a5568;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+aside p:last-child {
+    margin-bottom: 0;
+}
+
+aside p strong {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+/* Add icons and better formatting to aside stats */
+aside p:first-child::before {
+    content: "📊 ";
+    margin-right: 0.5rem;
+}
+
+aside p:nth-child(2)::before {
+    content: "💰 ";
+    margin-right: 0.5rem;
+}
+
+aside p:nth-child(3)::before {
+    content: "🏷️ ";
+    margin-right: 0.5rem;
+}
+
+aside p:nth-child(4)::before {
+    content: "🧮 ";
+    margin-right: 0.5rem;
+}
+
+/* Update hover effect for consistency */
+tr:hover {
+    background-color: #f0f4ff !important;
+}
+
+/* Override the old postage table styling */
+#postage {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+}
+
+#postage td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    font-size: 0.9rem;
+}
+
+#postage tr:first-child td {
+    background: #f8fafc;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+#postage tr:hover {
+    background-color: #f0f4ff;
+}
+
+#postage tr:last-child td {
+    border-bottom: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    aside {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 1.5rem auto 0;
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
-    .input-row {
-        grid-template-columns: 1fr;
+    #francobolli {
+        padding: 1rem;
     }
     
-    .radio-group {
-        gap: 0.5rem;
+    #francobolli table {
+        font-size: 0.8rem;
     }
     
-    .radio-label {
+    #francobolli table th,
+    #francobolli table td {
         padding: 0.5rem;
+    }
+    
+    aside {
+        margin: 1rem;
+        padding: 1rem;
     }
 }

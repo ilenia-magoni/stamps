@@ -6,7 +6,15 @@ This project is a web application that allows you to manage a collection of stam
 You can add stamps to your collection by specifying the currency (Euro, Lire, or a predefined letter denomination), the quantity, and the facial value. Clicking the "Add Stamps" button will add the specified stamps to your collection.
 
 ## Calculating Stamp Combinations 
-You can calculate stamp combinations to achieve a target postage value. Select the desired postage category (B, B Zone 1, B Zone 2, B Zone 3, or a custom value), specify the maximum number of stamps to use, and click "Calculate". The application will display possible stamp combinations that sum to the target value.
+You can calculate stamp combinations to achieve a target postage value. The application offers several postage categories:
+
+- **Lettere Standard**: B, B Zona 1, B Zona 2, B Zona 3 (20g letters)
+- **Lettere 50g**: B 50g, B Zona 1 50g, B Zona 2 50g, B Zona 3 50g (50g letters)
+- **Posta Prioritaria**: A, A Zona 1, A Zona 2, A Zona 3 (priority mail with different weight limits)
+- **Piego Libri**: 2kg and 5kg book packages
+- **Valore Personalizzato**: Custom postage value
+
+Select the desired postage category, specify the maximum number of stamps to use, and click "Calculate". The application will display possible stamp combinations that sum to the target value.
 
 ## Managing Your Stamp Collection
 The application displays a table showing all the stamps in your collection, including the facial value, euro value, quantity, and total value for each stamp. You can remove stamps from your collection using the "Remove stamp" button for each row.

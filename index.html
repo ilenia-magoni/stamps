@@ -14,7 +14,7 @@
     </header>
     <main>
         <fieldset class="add-stamps-form">
-            <legend class="collapsible-legend" onclick="toggleCollapse('add-stamps-content')">
+            <legend class="collapsible-legend" data-target="add-stamps-content">
                 <span class="collapse-icon">▼</span>
                 Aggiungi francobolli alla collezione
             </legend>
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <button onclick="addStamps()" class="add-button">
+            <button id="add-stamps-btn" class="add-button">
                 <span class="button-icon">➕</span>
                 Aggiungi Francobolli
             </button>
@@ -70,7 +70,7 @@
             </div>
         </fieldset>
         <fieldset class="calculate-stamps-form">
-            <legend class="collapsible-legend" onclick="toggleCollapse('calculate-stamps-content')">
+            <legend class="collapsible-legend" data-target="calculate-stamps-content">
                 <span class="collapse-icon">▼</span>
                 Calcolami francobolli per
             </legend>
@@ -207,7 +207,7 @@
                     <input type="number" min="1" value="4" id="quantita-francobolli-calcolo" class="form-input" placeholder="es. 4">
                 </div>
 
-                <button id="calcola" onclick="calculateStamps()" class="calculate-button">
+                <button id="calcola" class="calculate-button">
                     <span class="button-icon">🧮</span>
                     Calcola Combinazioni
                 </button>
