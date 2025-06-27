@@ -396,6 +396,70 @@ letterRadio.addEventListener("change", handleCurrencyChange);
 // Initialize the form state
 handleCurrencyChange();
 
+// Currency-specific input validation
+const valueInput = document.querySelector("#valore");
+
+// Update input attributes and validation based on currency type
+function updateValueInputValidation() {
+    if (lireRadio.checked) {
+        // Lire: integers only
+        valueInput.setAttribute("step", "1");
+        valueInput.setAttribute("min", "1");
+        valueInput.setAttribute("placeholder", "es. 400");
+        valueInput.title = "Inserisci un valore intero in Lire";
+    } else if (euroRadio.checked) {
+        // Euro: up to 2 decimal places
+        valueInput.setAttribute("step", "0.01");
+        valueInput.setAttribute("min", "0.01");
+        valueInput.setAttribute("placeholder", "es. 1.30");
+        valueInput.title = "Inserisci un valore in Euro (massimo 2 decimali)";
+    }
+}
+
+// Real-time input validation
+valueInput.addEventListener("input", function() {
+    const value = this.value;
+    
+    if (lireRadio.checked) {
+        // For Lire: only integers
+        if (value.includes(".") || value.includes(",")) {
+            // Remove decimal places for Lire
+            this.value = value.replace(/[.,].*/g, "");
+            showMessage("I valori in Lire devono essere numeri interi", "error");
+        }
+    } else if (euroRadio.checked) {
+        // For Euro: max 2 decimal places
+        const parts = value.split(".");
+        if (parts.length > 2) {
+            // Multiple decimal points
+            this.value = parts[0] + "." + parts[1];
+        } else if (parts.length === 2 && parts[1].length > 2) {
+            // More than 2 decimal places
+            this.value = parts[0] + "." + parts[1].substring(0, 2);
+            showMessage("I valori in Euro possono avere massimo 2 decimali", "error");
+        }
+    }
+});
+
+// Update input validation when currency changes
+function handleCurrencyChangeWithValidation() {
+    handleCurrencyChange(); // Call original function
+    updateValueInputValidation();
+    valueInput.value = ""; // Clear value when switching currency
+}
+
+// Replace the event listeners with the enhanced version
+euroRadio.removeEventListener("change", handleCurrencyChange);
+lireRadio.removeEventListener("change", handleCurrencyChange);
+letterRadio.removeEventListener("change", handleCurrencyChange);
+
+euroRadio.addEventListener("change", handleCurrencyChangeWithValidation);
+lireRadio.addEventListener("change", handleCurrencyChangeWithValidation);
+letterRadio.addEventListener("change", handleCurrencyChangeWithValidation);
+
+// Initialize validation on page load
+updateValueInputValidation();
+
 // Form validation and user feedback functions
 function showMessage(message, type = 'success') {
     const messagesDiv = document.querySelector('#form-messages');
@@ -421,9 +485,35 @@ function validateForm() {
         return false;
     }
     
-    if (!letterRadio.checked && (!value || value <= 0)) {
-        showMessage('Per favore inserisci un valore valido (maggiore di 0)', 'error');
-        return false;
+    if (!letterRadio.checked) {
+        if (!value || value <= 0) {
+            showMessage('Per favore inserisci un valore valido (maggiore di 0)', 'error');
+            return false;
+        }
+        
+        if (lireRadio.checked) {
+            // Validate Lire: must be integer
+            if (value.includes(".") || value.includes(",") || value % 1 !== 0) {
+                showMessage("I valori in Lire devono essere numeri interi", "error");
+                return false;
+            }
+            if (parseInt(value) < 1) {
+                showMessage("Il valore in Lire deve essere almeno 1", "error");
+                return false;
+            }
+        } else if (euroRadio.checked) {
+            // Validate Euro: max 2 decimal places
+            const euroValue = parseFloat(value);
+            if (isNaN(euroValue) || euroValue < 0.01) {
+                showMessage("Il valore in Euro deve essere almeno €0.01", "error");
+                return false;
+            }
+            const decimals = value.split(".")[1];
+            if (decimals && decimals.length > 2) {
+                showMessage("I valori in Euro possono avere massimo 2 decimali", "error");
+                return false;
+            }
+        }
     }
     
     if (letterRadio.checked && !letterSelect.value) {
@@ -449,3 +539,21 @@ window.addStamps = function() {
         console.error('Error adding stamps:', error);
     }
 };
+
+// Collapsible section functionality
+function toggleCollapse(contentId) {
+    const content = document.getElementById(contentId);
+    const icon = document.querySelector('.collapse-icon');
+    
+    if (content.classList.contains('collapsed')) {
+        // Expand
+        content.classList.remove('collapsed');
+        icon.classList.remove('collapsed');
+        icon.textContent = '▼';
+    } else {
+        // Collapse
+        content.classList.add('collapsed');
+        icon.classList.add('collapsed');
+        icon.textContent = '▶';
+    }
+}

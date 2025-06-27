@@ -14,8 +14,12 @@
     </header>
     <main>
         <fieldset class="add-stamps-form">
-            <legend>Aggiungi francobolli alla lista</legend>
+            <legend class="collapsible-legend" onclick="toggleCollapse('add-stamps-content')">
+                <span class="collapse-icon">▼</span>
+                Aggiungi francobolli alla collezione
+            </legend>
             
+            <div id="add-stamps-content" class="collapsible-content">
             <div class="form-group">
                 <label class="form-label">Tipo di valuta:</label>
                 <div class="radio-group">
@@ -63,6 +67,7 @@
             </button>
             
             <div id="form-messages" class="form-messages"></div>
+            </div>
         </fieldset>
         <fieldset>
             <legend>Calcolami francobolli per</legend>

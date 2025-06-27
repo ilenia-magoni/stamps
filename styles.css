@@ -162,7 +162,6 @@ tr:hover {
 }
 
 .letter-select {
-    margin-top: 0.75rem;
     width: 100%;
     padding: 0.75rem;
     border: 2px solid #e2e8f0;
@@ -170,6 +169,14 @@ tr:hover {
     font-size: 0.95rem;
     background: white;
     transition: border-color 0.2s ease;
+    height: 3.25rem;
+    line-height: 1.5;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
 }
 
 .letter-select:focus {
@@ -191,6 +198,8 @@ tr:hover {
     border-radius: 8px;
     font-size: 0.95rem;
     transition: all 0.2s ease;
+    height: 3.25rem;
+    line-height: 1.5;
 }
 
 .form-input:focus {
@@ -255,6 +264,57 @@ tr:hover {
     padding: 0.75rem;
     border-radius: 6px;
     font-size: 0.9rem;
+}
+
+/* Collapsible section styling */
+.collapsible-legend {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.collapsible-legend:hover {
+    color: #667eea;
+}
+
+.collapse-icon {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.collapse-icon.collapsed {
+    transform: rotate(-90deg);
+}
+
+.collapsible-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+    max-height: 1000px;
+    opacity: 1;
+}
+
+.collapsible-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/* Reduce fieldset padding when collapsed */
+.add-stamps-form:has(.collapsible-content.collapsed) {
+    padding: 0.5rem 1rem 0.25rem 1rem;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+/* Make legend smaller when collapsed */
+.add-stamps-form:has(.collapsible-content.collapsed) legend {
+    font-size: 1rem;
+    padding: 0 0.5rem;
 }
 
 @media (max-width: 768px) {
